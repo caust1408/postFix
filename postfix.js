@@ -4,7 +4,15 @@
 
 
 function Stack() {
-	this.dataStore = [];
+	this.operators = [];
+	this.operands = [];
+	this.top = 0;
+	this.push = push;
+	this.pop = pop;
+}
+
+function Output() {
+	this.operands = [];
 	this.top = 0;
 	this.push = push;
 	this.pop = pop;
@@ -12,20 +20,23 @@ function Stack() {
 
 
 function push(userInput) {
+	//var out = new Output();
 	print('I am getting ' + userInput);
 	for (var i = 0; i < userInput.length;i++) {
 		var x = userInput.charAt(i);
 		if( isNaN(x)) {
 		   if ((x == '*') ||(x == '-') || (x == '+') || (x == '/')) {
-			print(' this is an operator ' + x);
-				this.dataStore[this.top++] = x;
+			print(' this is a stack ' + x);
+				this.operators[this.top++] = x;
+				print('top index for operators is ' + this.top);
+				
 		   }
 		
 		}
 		         else {
-	                      print('this is a number ' + x);
-			      this.dataStore[this.top++] = x;
-
+	                      print('this is the output ' + x);
+			      this.operands[this.top++] = x;
+			      print('top index for operand is ' + this.top);
 		         }   	     
 
 	//return this.dataStore;
