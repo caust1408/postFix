@@ -9,6 +9,9 @@ function Stack() {
 	this.push = push;
 	this.pop = pop;
 	this.top = 0;
+	this.peek = peek;
+	this.clear = clear;
+	this.length = length;
 }
 
 function push(element) {
@@ -17,12 +20,21 @@ function push(element) {
 function pop() {
 	return this.dataStore[--this.top];
 }
+function peek() {
+	return this.dataStore[this.top-1];
+}
+function clear() { 
+	this.top =0;
+}
+function length() {
+	return this.top;
+}
 
 
 
 function separate(userInput) {                                          // separates the operators from operands
 	var s = new Stack();                         // creates new statck
-	
+        	
 	var str = '';                                // creates new empty sting to store output
 	for (var i = 0; i < userInput.length;i++) {  // searches through each character 
 		var x = userInput.charAt(i);         // stores each character as x
@@ -42,8 +54,8 @@ function separate(userInput) {                                          // separ
 			   
 			  
 			   while((x != '^') && (precedence(x) > 1)) {       // checks  to see if the precedence is greater than one 
-				 str += x;
-			         s.pop();	 
+				 str += s.pop();
+			         //s.pop();	 
 			  }
 			   }
 
