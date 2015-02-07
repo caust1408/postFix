@@ -34,33 +34,33 @@ function length() {
 
 function separate(userInput) {                                          // separates the operators from operands
 	var s = new Stack();                         // creates new statck
-        	
+        print(userInput); 	
+	
 	var str = '';                                // creates new empty sting to store output
-	for (var i = 0; i < userInput.length;i++) {  // searches through each character 
-		var x = userInput.charAt(i);         // stores each character as x
-		
-		if(!isNaN(x)) {                      // sees whether x is a number
-			//print(str);
-			//s.push(x);
-		        str += x;                    // puts x in output string 
+	var x = userInput.split(' ');
+	//print(x);
+	for (var i = 0; i < x.length;i++) {  // searches through each character 
+		//var x = userInput.split(' ');         // stores each character as x
+	//print('in for loop' + x[i]);	
+		if(!isNaN(x[i])) {                      // sees whether x is a number
+			print(str);
+			//s.push(x[i]);
+		        str += x[i];                    // puts x in output string 
 		}
-		   
-		else if((x == '+') || (x == '-') || (x == '*') 
-				|| (x == '/') || (x == '^')) {              // checks to see which operator it is
-			   //print('about to push operator ' + x);          
-			   //print('operators added ' + str);
-                           s.push(x);                                       // pushes x to the stack
-			   //print(s.dataStore);
-			   
-			  
-			   while((x != '^') && (precedence(x) > 1)) {       // checks  to see if the precedence is greater than one 
+		else if(s.length() == 0) {
+		      s.push(x[i]);
+		}	      
+		else if((x[i] == '+') || (x[i] == '-') || (x[i] == '*') || (x[i] == '/') || (x[i] == '^')) {            
+	            while((x[i] != '^') && (precedence(x[i]) <= s.top)) {      
 				 str += s.pop();
-			         //s.pop();	 
+			         //str += x[i];
+				 //s.pop();	 
 			  }
+		    s.push(x[i]);
 			   }
 
 		   }
-	print(str);
+	//print(str);
         }
 
 	
@@ -83,4 +83,4 @@ var precedence = function(operator) {                                // gives ea
 
 //print('Enter infix expression : ');
 //var expression = readline('Enter infix expression');
-var test = new separate('2+3+4+5+6');
+var test = new separate('2 + 3 * 4 + 5 - 6');
