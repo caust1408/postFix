@@ -12,6 +12,7 @@ function Stack() {
 	this.peek = peek;
 	this.clear = clear;
 	this.length = length;
+	this.back = back;
 }
 
 function push(element) {
@@ -29,6 +30,9 @@ function clear() {
 function length() {
 	return this.top;
 }
+function back() {
+	return this.dataStore[this.dataStore.length-1];
+}
 
 
 
@@ -40,28 +44,26 @@ function separate(userInput) {                                          // separ
 	var x = userInput.split(' ');
 	//print(x);
 	for (var i = 0; i < x.length;i++) {  // searches through each character 
-		//var x = userInput.split(' ');         // stores each character as x
-	//print('in for loop' + x[i]);	
 		if(!isNaN(x[i])) {                      // sees whether x is a number
 			print(str);
-			//s.push(x[i]);
 		        str += x[i];                    // puts x in output string 
 		}
 		else if(s.length() == 0) {
 		      s.push(x[i]);
-		}	      
+		}
+		else if(x.length < 1) {
+                      s.push(x[i]);
+		}
 		else if((x[i] == '+') || (x[i] == '-') || (x[i] == '*') || (x[i] == '/') || (x[i] == '^')) {            
 	            while((x[i] != '^') && (precedence(x[i]) <= s.top)) {      
 				 str += s.pop();
-			         //str += x[i];
-				 //s.pop();	 
-			  }
-		    s.push(x[i]);
-			   }
-
-		   }
-	//print(str);
+	            }
+		                 s.push(x[i]);
+	       }
         }
+        str += s.pop();
+	print(str);
+}
 
 	
 var precedence = function(operator) {                                // gives each operator a rank
