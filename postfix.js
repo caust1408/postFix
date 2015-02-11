@@ -46,8 +46,11 @@ function separate(userInput) {                                          // separ
 	for (var i = 0; i < x.length;i++) {  // searches through each character 
 		if(!isNaN(x[i])) {                      // sees whether x is a number
 			print(str);
-		        str += x[i];                    // puts x in output string 
+			str += x[i];                    // puts x in output string
+			//s.push(x[i]);
+		        	
 		}
+
 		else if(s.length() == 0) {
 		      s.push(x[i]);
 		}
@@ -57,12 +60,14 @@ function separate(userInput) {                                          // separ
 		else if((x[i] == '+') || (x[i] == '-') || (x[i] == '*') || (x[i] == '/') || (x[i] == '^')) {            
 	            while((x[i] != '^') && (precedence(x[i]) <= s.top)) {      
 				 str += s.pop();
+				 
 	            }
 		                 s.push(x[i]);
 	       }
         }
         str += s.pop();
 	print(str);
+	evaluate(str);
 }
 
 	
@@ -80,7 +85,46 @@ var precedence = function(operator) {                                // gives ea
 	       default:
 	        return 0;	
        }
-}       
+}
+
+var evaluate = function(str) {
+    var f = new Stack();
+	for (i=0;i<str.length;i++) {
+            x = str.charAt(i);
+	    print('this is it ' + x);
+	    if(!isNaN(x)) {
+	       f.push(x);
+            }
+	    else if(x == '+' || x == '-' || x == '*' || x == '/' || x == '^') { 
+                    calc(f,x);
+		    print(f.top());
+        }
+}
+}
+var calc = function(temp, execute) {
+	var num2 = temp.pop();
+	var num1 = temp.pop();
+	switch(execute) {
+		case '+':
+		   temp.push(num1 + num2);
+		   break;
+		case '-': 
+		    temp.push(num1 - num2);
+		    break;
+		case '*':
+		    temp.push(num1 * num2);
+		    break;
+		case '/':
+		    temp.push(num1 / num2);
+		    break;
+		case '^' :
+		    temp.push(Math.pow(num1,num2));
+		    break;
+	}
+
+}	
+
+
 
 
 //print('Enter infix expression : ');
