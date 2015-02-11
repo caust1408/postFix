@@ -3,8 +3,8 @@
 //
 
 
-function Stack() {
-	this.dataStore = [];
+function Stack() {				// creates what is required for a stack
+	this.dataStore = []; 			
 	this.serparte = separate;
 	this.push = push;
 	this.pop = pop;
@@ -15,6 +15,7 @@ function Stack() {
 	this.back = back;
 }
 
+// creates functions for the stack
 function push(element) {
 	this.dataStore[this.top++] = element;
 }
@@ -36,7 +37,8 @@ function back() {
 
 
 
-function separate(userInput) {                                          // separates the operators from operands
+// this separates the expression and puts it into postfix
+function separate(userInput) {                                        
 	var s = new Stack();                         // creates new statck
         print(userInput); 	
 	
@@ -51,23 +53,22 @@ function separate(userInput) {                                          // separ
 		        	
 		}
 
-		else if(s.length() == 0) {
+		else if(s.length() == 0) {         // pushes to stack if it's empty
 		      s.push(x[i]);
 		}
-		else if(x.length < 1) {
+		else if(x.length < 1) {            // pushes to stack if the length of expression is less than 1
                       s.push(x[i]);
 		}
-		else if((x[i] == '+') || (x[i] == '-') || (x[i] == '*') || (x[i] == '/') || (x[i] == '^')) {            
+		else if((x[i] == '+') || (x[i] == '-') || (x[i] == '*') || (x[i] == '/') || (x[i] == '^')) {    // determines if x is an operator        
 	            while((x[i] != '^') && (precedence(x[i]) <= s.top)) {      
 				 str += s.pop();
-				 
 	            }
-		                 s.push(x[i]);
+		                 s.push(x[i]);							
 	       }
         }
-        str += s.pop();
+	str += s.pop();
 	print(str);
-	evaluate(str);
+	evaluate(str);					// passes str through another function
 }
 
 	
@@ -86,24 +87,26 @@ var precedence = function(operator) {                                // gives ea
 	        return 0;	
        }
 }
-
+// looks at the str and evaluates the expression
 var evaluate = function(str) {
-    var f = new Stack();
+    var f = new Stack();						// creates new stack
 	for (i=0;i<str.length;i++) {
             x = str.charAt(i);
-	    print('this is it ' + x);
-	    if(!isNaN(x)) {
-	       f.push(x);
+	    //print('this is it ' + x);
+	    if(!isNaN(parseInt(x))) {
+	       f.push(parseInt(x));
             }
-	    else if(x == '+' || x == '-' || x == '*' || x == '/' || x == '^') { 
+	    else if((x == '+') || (x == '-') || (x == '*') || (x == '/') || (x == '^')) { 
                     calc(f,x);
-		    print(f.top());
+		    print(f.peek());						// looks at what's left on stack, giving the final answer
         }
 }
 }
-var calc = function(temp, execute) {
+var calc = function(temp, execute) {						// pops the numbers and performs the operations 
 	var num2 = temp.pop();
+	print('num2 ' +num2);
 	var num1 = temp.pop();
+	print('num1 ' + num1);
 	switch(execute) {
 		case '+':
 		   temp.push(num1 + num2);
